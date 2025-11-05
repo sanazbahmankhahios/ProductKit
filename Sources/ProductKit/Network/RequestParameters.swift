@@ -30,7 +30,11 @@ public extension URLRequest {
     private mutating func queryParameter<V: Encodable>(encodable: V, encoder: JSONEncoder = JSONEncoder()) throws {
         let data = try encoder.encode(encodable)
         guard let parameters = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            throw RequestParameterEncodingError.queryParameterEncodingFailure
+            throw NSError(
+                           domain: "ProductKit.RequestParameters",
+                           code: 0,
+                           userInfo: [NSLocalizedDescriptionKey: "Query parameter encoding failed"]
+                       )
         }
 
         guard let url = self.url else { throw URLError(.badURL) }
@@ -46,8 +50,4 @@ public extension URLRequest {
             self.url = urlWithQuery
         }
     }
-}
-
-public enum RequestParameterEncodingError: Error {
-    case queryParameterEncodingFailure
 }
