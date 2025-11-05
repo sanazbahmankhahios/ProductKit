@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 public final class RequestHandler: @unchecked Sendable {
-    public static let shared = RequestHandler()
     private let session: URLSession
 
     public init(session: URLSession = .shared) {

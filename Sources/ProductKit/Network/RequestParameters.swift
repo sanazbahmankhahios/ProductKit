@@ -33,9 +33,15 @@ public extension URLRequest {
             throw RequestParameterEncodingError.queryParameterEncodingFailure
         }
 
-        var urlComponents = URLComponents(url: self.url!, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
-
+        guard let url = self.url else { throw URLError(.badURL) }
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        urlComponents?.queryItems = parameters.map { key, value in
+            URLQueryItem(
+                name: key,
+                value: "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            )
+        }
+        
         if let urlWithQuery = urlComponents?.url {
             self.url = urlWithQuery
         }

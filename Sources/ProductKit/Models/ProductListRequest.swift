@@ -11,7 +11,7 @@ public struct ProductRequest: Encodable {
     public var limit: Int
     public var skip: Int
 
-    public init(limit: Int = 20, skip: Int = 20) {
+    public init(limit: Int, skip: Int) {
         self.limit = limit
         self.skip = skip
     }

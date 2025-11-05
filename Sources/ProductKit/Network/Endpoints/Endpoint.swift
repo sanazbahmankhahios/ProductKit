@@ -16,7 +16,7 @@ public protocol Endpoint {
 }
 
 public extension Endpoint {
-    var baseURL: URL { URL(string: "https://dummyjson.com")! }
+    var baseURL: URL { URL(string: "https://dummyjson.com")! }  // swiftlint:disable:this force_unwrapping
     var method: String { "GET" }
     var headers: [String: String]? { nil }
     var parameters: RequestParameters? { nil }
@@ -24,9 +24,7 @@ public extension Endpoint {
     func asURLRequest() throws -> URLRequest {
         var request = URLRequest(url: baseURL.appendingPathComponent(path))
         request.httpMethod = method
-
         headers?.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
-
         if let parameters {
             try request.encode(parameter: parameters)
         }
