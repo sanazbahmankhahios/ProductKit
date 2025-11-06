@@ -30,4 +30,8 @@ public struct Product: Codable, Identifiable {
     public let meta: Meta
     public let thumbnail: URL?
     public let images: [URL]
+    
+    public var discountedPrice: Double {
+            price * (100 - discountPercentage) / 100
+        }
 }
