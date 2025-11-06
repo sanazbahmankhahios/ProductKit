@@ -5,17 +5,17 @@ import Combine
 
 final class ProductKitTests: XCTestCase {
     var mockClient: ProductClientMock!
-    var cancellables: Set<AnyCancellable>!
+    var cancellable: Set<AnyCancellable>!
     
     override func setUp() {
         super.setUp()
         mockClient = ProductClientMock()
-        cancellables = []
+        cancellable = []
     }
     
     override func tearDown() {
         mockClient = nil
-        cancellables = nil
+        cancellable = nil
         super.tearDown()
     }
     
@@ -32,7 +32,7 @@ final class ProductKitTests: XCTestCase {
                 XCTAssertEqual(response.total, 4)
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
         
         wait(for: [expectation], timeout: 1)
     }
@@ -51,7 +51,7 @@ final class ProductKitTests: XCTestCase {
                 XCTAssertEqual(product.title, targetProduct.title)
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
         
         wait(for: [expectation], timeout: 1)
     }
@@ -73,7 +73,7 @@ final class ProductKitTests: XCTestCase {
             } receiveValue: { _ in
                 XCTFail("Publisher should not emit a product for missing ID")
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
         
         wait(for: [expectation], timeout: 1)
     }

@@ -10,10 +10,11 @@ import Combine
 
 public final class RequestHandler: @unchecked Sendable {
     private let session: URLSession
-
-    public init(session: URLSession = .shared) {
-        self.session = session
-    }
+    public static let shared = RequestHandler()
+      
+      public init(session: URLSession = .shared) {
+          self.session = session
+      }
 
     public func call<T: Decodable>(_ endpoint: ProductEndpoint) -> AnyPublisher<T, Error> {
         do {
