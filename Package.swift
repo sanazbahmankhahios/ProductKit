@@ -16,6 +16,10 @@ let package = Package(
             targets: ["ProductKit"]
         )
     ],
+//    dependencies: [
+//       
+//       .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "8.6.1")),
+//    ],
     targets: [
         .target(
             name: "ProductKit"

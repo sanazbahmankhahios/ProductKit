@@ -7,13 +7,21 @@
 
 import Combine
 
-public struct ProductClientMock: ProductClient {
+public struct ProductDomainMock: ProductDomain {
+  
     public init() {}
 
     public let products: [Product] = [.mock, .mock, .mock, .mock]
 
-    public func products(request: ProductRequest) -> AnyPublisher<ProductResponse, Error> {
-        let response = ProductResponse(products: products, total: products.count)
+    
+    public func searchProduct(key: String) -> AnyPublisher<[Product], Never> {
+        let response = products
+        return Just(response)
+                .eraseToAnyPublisher()
+    }
+    
+    public func products(request: ProductRequest) -> AnyPublisher<ProductsPagination, any Error> {
+        let response = ProductsPagination(products: products, total: products.count)
         return Just(response)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()

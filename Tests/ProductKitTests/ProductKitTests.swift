@@ -4,12 +4,12 @@ import Combine
 @testable import ProductKit
 
 final class ProductKitTests: XCTestCase {
-    var mockClient: ProductClientMock!
+    var mockClient: ProductDomainMock!
     var cancellable: Set<AnyCancellable>!
     
     override func setUp() {
         super.setUp()
-        mockClient = ProductClientMock()
+        mockClient = ProductDomainMock()
         cancellable = []
     }
     
